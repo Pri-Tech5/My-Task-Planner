@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Planner</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts: Poppins & Lobster -->
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-motivation">
+        <div class="motivation-quote" style="top:8%;left:5%;">🚀 <span>Dream Big!</span></div>
+        <div class="motivation-quote" style="top:20%;right:7%;">💡 <span>Stay Positive</span></div>
+        <div class="motivation-quote" style="bottom:18%;left:10%;">🔥 <span>Keep Going!</span></div>
+        <div class="motivation-quote" style="bottom:10%;right:8%;">🌟 <span>You Got This!</span></div>
+        <div class="motivation-quote" style="top:50%;left:45%;">✨ <span>Make Today Count</span></div>
+    </div>
+    <header>
+        <h1>My Task Planner</h1>
+    </header>
+    <main>
+        <div class="container">
+            <section class="goal-section" id="main-goals">
+                <h2>🏆 Main Goals</h2>
+                <ul class="task-list" id="main-goals-list"></ul>
+            </section>
+
+            <section class="goal-section" id="side-goals">
+                <h2>🎯 Side Goals</h2>
+                <ul class="task-list" id="side-goals-list"></ul>
+            </section>
+
+            <section class="goal-section" id="daily-goals">
+                <h2>📅 Daily Goals</h2>
+                <ul class="task-list" id="daily-goals-list"></ul>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Task Planner 🚀</p>
+    </footer>
+    <script src="main.js"></script>
+
+    <!-- Task Modal -->
+    <div id="task-modal-overlay" class="modal-overlay" style="display:none;"></div>
+    <div id="task-modal" class="task-modal" style="display:none;">
+        <form id="task-modal-form" onsubmit="submitTaskModal(event)">
+            <h3>📝 Add Task</h3>
+            <div class="modal-field">
+                <label for="modal-task-destination">Add to</label>
+                <select id="modal-task-destination">
+                    <option value="main">🏆 Main Goals</option>
+                    <option value="side">🎯 Side Goals</option>
+                    <option value="daily">📅 Daily Goals</option>
+                </select>
+            </div>
+            <input type="hidden" id="modal-task-type">
+            <div class="modal-field">
+                <label for="modal-task-title">Title</label>
+                <input type="text" id="modal-task-title" required maxlength="100">
+            </div>
+            <div class="modal-field">
+                <label for="modal-task-desc">Description</label>
+                <textarea id="modal-task-desc" rows="2" maxlength="300" placeholder="Describe your task..."></textarea>
+            </div>
+            <div class="modal-field">
+                <label for="modal-task-importance">Importance</label>
+                <select id="modal-task-importance">
+                    <option value="normal">🟢 Normal</option>
+                    <option value="high">🔴 High</option>
+                    <option value="low">🟡 Low</option>
+                </select>
+            </div>
+            <div class="modal-field">
+                <label for="modal-task-deadline">Deadline</label>
+                <input type="date" id="modal-task-deadline">
+            </div>
+            <div class="modal-actions">
+                <button type="submit" class="modal-add-btn">➕ Add Task</button>
+                <button type="button" class="modal-cancel-btn" onclick="closeTaskModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Task Details Floating Window -->
+    <div id="task-details-modal-overlay" class="modal-overlay" style="display:none;"></div>
+    <div id="task-details-modal" class="task-modal" style="display:none; min-width:320px;">
+        <div id="task-details-content">
+            <!-- Task details will be injected here -->
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="modal-edit-btn" onclick="editTaskFromDetails()">Edit</button>
+            <button type="button" class="modal-cancel-btn" onclick="closeTaskDetailsModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Edit Task Floating Window -->
+    <div id="edit-task-modal-overlay" class="modal-overlay" style="display:none;"></div>
+    <div id="edit-task-modal" class="task-modal" style="display:none; min-width:320px;">
+        <form id="edit-task-modal-form" onsubmit="submitEditTaskModal(event)">
+            <h3>✏️ Edit Task</h3>
+            <div class="modal-field">
+                <label for="edit-task-title">Title</label>
+                <input type="text" id="edit-task-title" required maxlength="100">
+            </div>
+            <div class="modal-field">
+                <label for="edit-task-desc">Description</label>
+                <textarea id="edit-task-desc" rows="2" maxlength="300" placeholder="Describe your task..."></textarea>
+            </div>
+            <div class="modal-field">
+                <label for="edit-task-importance">Importance</label>
+                <select id="edit-task-importance">
+                    <option value="normal">🟢 Normal</option>
+                    <option value="high">🔴 High</option>
+                    <option value="low">🟡 Low</option>
+                </select>
+            </div>
+            <div class="modal-field">
+                <label for="edit-task-deadline">Deadline</label>
+                <input type="date" id="edit-task-deadline">
+            </div>
+            <div class="modal-actions">
+                <button type="submit" class="modal-add-btn">💾 Save Changes</button>
+                <button type="button" class="modal-cancel-btn" onclick="closeEditTaskModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Floating Add Task Button -->
+    <button class="floating-add-btn" onclick="openTaskModal('main')" title="Add Task">
+        🚀
+    </button>
+</body>
+</html>
